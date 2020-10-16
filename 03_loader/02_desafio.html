@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Balls</title>
+</head>
+<style>
+    *{
+        margin:0px;
+        box-sizing: border-box;
+        padding: 0px;
+    }
+
+   
+
+    .loader{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .squad{
+        background: green;
+        height: 30px;
+        width:30px;
+        display: inline-block;       
+        margin: 10px;
+        position: relative;
+    }
+
+    
+</style>
+<body>
+    <div class="loader">
+        <span class="squad">
+            <span class="squad-dentro"></span>
+        </span>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
+    <script>
+        const balls = document.querySelectorAll('.squad')
+        
+
+
+        TweenMax.staggerTo(balls,1,{
+            rotation:360,
+            'border-radius':'50%',
+            repeat:-1,
+            yoyo:true,
+            delay:2
+        },3)
+    </script>
+</body>
+</html>

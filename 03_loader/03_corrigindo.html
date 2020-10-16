@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Balls</title>
+</head>
+<style>
+    *{
+        margin:0px;
+        box-sizing: border-box;
+        padding: 0px;
+    }
+
+   
+
+    .square-ball{
+        background: #facd9e;
+        border:8px solid #389798;
+        width: 80px;
+        height:80px;
+    }
+
+    
+</style>
+<body>
+    <div class="square-ball">
+      
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenMax.min.js"></script>
+    <script>
+        const balls = document.querySelector('.square-ball')
+        
+        TweenMax.to(balls,1,{
+            rotation:'360deg',
+            borderRadius:'50%',
+            scale:0.7,
+            repeat:-1,
+            repeatDelay:.5,
+            yoyo:true,
+        })
+    </script>
+</body>
+</html>

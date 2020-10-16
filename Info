@@ -1,0 +1,220 @@
+Greensock é uma plataforma com diversos plugins para fazer animações, ele é performatico e 
+esta é sua ventagem o que diferencia de qualquer outro plugin como jquery
+
+
+para chamar os eventos vamos usar TweenMax.nomeDoMetodo
+
+
+metodo set
+    Altera as propriedades de um elemento, com css e com as propriras tags do greenSock
+    muito usado para definir a posição dos elementos antes de iniciar a animação 
+
+    TweenMax.set(elemento,{
+        propriedades a serem alteradas
+    })
+
+metodo to
+    to => para , propriedades para o final
+    define do inicio para 
+        ou seja oque sera feito de onde ela esta até a posição final, isso pode ser 
+        uma alteração de propriedade, ou efeitos
+
+
+    TweenMax.to(elemento, tempo,{
+        propriedades css ou do proprio Greensock
+    })
+
+metodo from 
+    from => vem de, propriedades de quando começa
+
+    Faz animação quando carrega o dom ou seja antes de exbir a posição inicial
+
+    TweenMax.from(elemento, tempo,{
+        propriedades css ou do proprio Greensock
+    })
+
+metodo fromTo
+    junção do from com o to 
+
+    TweenMax.fromTo(elemento,tempo,{
+        propriedades para from
+    },{
+        propriedades para to
+    })
+
+metodo staggerTo()
+    So funciona em listas
+    anima uma lista item por item
+    mesma coisa que o to mas para listas
+
+    TweenMax.staggerTo(listaComElementos, tempos,{
+        propriedades
+    }, tempoParaOproximoItem)
+
+metodo staggerFrom()
+    So funciona em listas
+    anima uma lista item por item
+    mesma coisa que o from mas para listas
+    
+    TweenMax.staggerFrom(listaComElementos, tempos,{
+        propriedades
+    }, tempoParaOproximoItem)
+
+propriedade delay
+    serve para atrasar uma animação
+    não funciona no fromTo caso queira fazer umapause entre as animações 
+    neste caso use from e depois to, dentro de to aplique o delay com um tempo superior
+    a animação de from
+
+    TweenMax.to(elemento, tempo,{
+       delay:tempo
+    })
+
+propriedade ease 
+    contola a maneira de alteração das propriedades
+    o ease ja vem como padrão power0
+    site para testes
+        https://greensock.com/ease-visualizer
+    
+    TweenMax.from(elemento, tempo,{
+       ease:Sine. easeOut
+    })
+
+propriedade cycle
+    é um objto onde passamos as propriedades e dentro de [] os valores
+    pois ele vai criar um ciclo 
+    so funciona em stagger 
+    exemplificando
+        digamos que vc queria ver somente o 2 4 6 e 8 
+        
+    TweenMax.staggerTo(items,1,{
+        opacity:0,
+        cycle:{
+            opacity:[0,1] "0 primeiro elemento, 1 segundo elemento e isso se repete em todos"
+        }
+    }, .3)
+
+propriedade repeat
+    usado para repetir a animação 
+    1 = repete a animação 1x
+    2
+    -1 = infinitas repetições
+
+    TweenMax.from(elemento, tempo,{
+        propriedades css ou do proprio Greensock
+        repeat:-1
+    })
+
+propriedade yoyo
+    usado para deixar mais fluida a animação com repetição 
+    vai e volta
+
+        TweenMax.from(elemento, tempo,{
+        propriedades css ou do proprio Greensock
+        repeat:-1
+        yoyo:true
+    })
+
+propriedades onStart, onUpdate, onComplete e onRepeat
+    são propriedades que recebem uma função 
+    esta função pode informar um texto ou fazer alguma alteração 
+
+    onStart => inico da animação 
+    onUpdate => durante a animação 
+    onComplete => qaundo a animação finalizar 
+    onRepeat => quando se repete
+
+objeto timeline  
+    conceito de animações encadeadas ou chaining
+
+    devemos instanciar o obj, a comunidade inica com o nome tl 
+
+    const tl = new TimelineMax()
+
+    agora para fazer as animações trocamos o TweenMax por tl 
+
+delay - positive relative
+    so funciona na timeline - atrasa a animação 
+    
+    tl.from(elemento, tempo,{propriedades}, '+=1')
+
+overlap - negative relative 
+    so funciona na timeline - adianta a animação 
+
+    tl.from(elemento, tempo,{propriedades}, '-=1')
+
+position absolute
+    faz a animação exvutar de acordo co o inico da time line e não pela sequencia de animação 
+    tl.from(elemento, tempo,{propriedades}, tempo)
+
+label
+    variavel de tempo para timeline 
+    tl.add.('titleAppear','+=1')from(elemento, tempo,{propriedades}, 'titleAppear'')
+
+controle de time line 
+    para a animação vir pausada use 
+        const tl = new TimelineMax({ paused: true });
+    
+    tl.play() -> inicia 
+    tl.pause() -> pausa 
+    tl.resume() -> continuar
+    tl.reverse() -> reverso
+    tl.restart() -> reinicia
+
+    essas funçoes podem ser adicionado a botoes, ou loader do DOM
+
+controlando a velocidade da timeline 
+    tl.timeScale(valorDaVelocidade)
+
+draggable
+    permite mover os elementos da tela, rotaciona porem nescessita de 
+    mais arquivos para habilitar esta funcionalidade
+
+    basico
+        item = elemento 
+
+        Draggable.create(item);
+    
+    permitindo movimento em apenas 1 eixo 
+
+        so pode mover no x
+        Draggable.create(item,{
+            type:'x'
+        });
+
+        so pode mover no y
+        Draggable.create(item,{
+            type:'y'
+        });
+
+        so pode rodar
+        Draggable.create(item,{
+            type:'rotatio'
+        });
+
+        no IE 
+
+        Draggable.create(item,{
+            type:'top,left'
+        });
+    
+    limitando ate onde pode ir o movimento 
+    basta por os itens moveis dentro de um container
+
+    Draggable.create(item,{
+            type:'y,x',
+            bounds: variavelQueChamaOcontainer
+        });
+    
+resistencias 
+    mesmo com fronteira, liberando que um elemento o utrapasse
+    edgeResistance seu valor vai de 0 ate 1, seu padrão é 1
+    dragResistance: valor padrao 1, sever para definir a velocidade de movimento
+
+
+    Draggable.create(item,{
+        bounds:gallery,
+        edgeResistance:.5,
+        dragResistance:.5
+        
+    });
